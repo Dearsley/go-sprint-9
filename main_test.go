@@ -28,7 +28,7 @@ func TestGenerateRandomElements(t *testing.T) {
 			require.Len(t, elements, tt.wantSize)
 
 			for i, element := range elements {
-				assert.Greater(t, element, 0, "element at index %d", i)
+				assert.GreaterOrEqual(t, element, 0, "element at index %d", i)
 			}
 		})
 	}
@@ -54,7 +54,7 @@ func TestMaximum(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			require.Equal(t, tt.want, maximum(tt.data))
+			assert.Equal(t, tt.want, maximum(tt.data))
 		})
 	}
 }
@@ -81,7 +81,7 @@ func TestMaxChunks(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			require.Equal(t, tt.want, maxChunks(tt.data))
+			assert.Equal(t, tt.want, maxChunks(tt.data))
 		})
 	}
 }

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"math/rand"
 	"sync"
 	"time"
@@ -22,7 +21,7 @@ func generateRandomElements(size int) []int {
 	elements := make([]int, size)
 
 	for i := range elements {
-		elements[i] = rand.Intn(math.MaxInt) + 1
+		elements[i] = rand.Int()
 	}
 
 	return elements
@@ -46,20 +45,19 @@ func maximum(data []int) int {
 
 // maxChunks returns the maximum number of elements in a chunks.
 func maxChunks(data []int) int {
-	if len(data) == 0 {
-		return 0
+	if len(data) < CHUNKS {
+		return maximum(data)
 	}
 
 	var wg sync.WaitGroup
 
-	parts := min(len(data), CHUNKS)
-	chunkSize := len(data) / parts
-	maxElements := make([]int, parts)
+	chunkSize := len(data) / CHUNKS
+	maxElements := make([]int, CHUNKS)
 
-	for i := range parts {
+	for i := range CHUNKS {
 		start := i * chunkSize
 		end := start + chunkSize
-		if i == parts-1 {
+		if i == CHUNKS-1 {
 			end = len(data)
 		}
 
